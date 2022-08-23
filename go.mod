@@ -1,4 +1,4 @@
-module gitlab.com/plantoncode/planton/oss/kube-google-credential-plugin
+module github.com/swarupdonepudi/kube-client-go-google-credential-plugin
 
 go 1.18
 
