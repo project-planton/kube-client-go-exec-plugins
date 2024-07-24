@@ -1,4 +1,4 @@
-module github.com/plantoncloud/kube-client-go-exec-plugin/azure
+module github.com/plantoncloud/kube-client-go-exec-plugins/azure
 
 go 1.22
 
