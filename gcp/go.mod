@@ -1,6 +1,6 @@
-module github.com/swarupdonepudi/kube-client-go-google-credential-plugin
+module github.com/plantoncloud/kube-client-go-exec-plugin/google
 
-go 1.18
+go 1.22
 
 require golang.org/x/oauth2 v0.0.0-20220822191816-0ebed06d0094
 

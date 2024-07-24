@@ -1,5 +1,5 @@
-name=kube-client-go-google-credential-plugin
-name_local=kube-client-go-google-credential-plugin
+name=kube-client-go-aws-credential-exec-plugin
+name_local=kube-client-go-aws-credential-exec-plugin
 build_dir=build
 build_cmd=go build
 
