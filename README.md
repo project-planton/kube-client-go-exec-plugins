@@ -7,6 +7,16 @@ This repository contains exec plugins for AWS, Google Cloud, and Azure. These pl
 
 The goal of these exec plugins is to simplify Kubernetes authentication by providing lightweight, standalone binaries that can be used in kubeconfigs. This approach ensures that users do not need to install and configure heavy CLI tools on their machines, thereby reducing setup complexity and improving security by minimizing dependencies.
 
+## Build Process
+
+Each plugin directory contains a `Makefile` with a `make build` command that compiles the respective exec plugin binary. The binaries can be uploaded to GitHub Releases for distribution.
+
+To build all plugins at once, you can use the `make all` command from the root directory. This will clean the `build` directory, compile all the binaries, and place them in the `build` directory at the root of the project.
+
+```sh
+make all
+```
+
 ## Plugins
 
 ### kube-client-go-gcp-exec-plugin
@@ -126,23 +136,6 @@ users:
 To build the binary for the AWS exec plugin, navigate to the `aws` directory and run the following command:
 
 ```sh
-make build
-```
-
-## Build Process
-
-Each plugin directory contains a `Makefile` with a `make build` command that compiles the respective exec plugin binary. The binaries can be uploaded to GitHub Releases for distribution.
-
-To build all plugins, you can navigate to each directory (`gcp`, `azure`, `aws`) and run the `make build` command. The generated binaries will be platform-specific and should be uploaded to the respective GitHub Releases for easy access and use.
-
-```sh
-cd gcp
-make build
-
-cd ../azure
-make build
-
-cd ../aws
 make build
 ```
 
