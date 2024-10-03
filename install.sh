@@ -4,10 +4,28 @@
 KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION="v0.0.2"
 INSTALL_DIR="/usr/local/bin"
 
-# Plugin URLs
-GCP_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-gcp-credential-exec-plugin-linux"
-AWS_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-aws-credential-exec-plugin-linux"
-AZURE_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-azure-credential-exec-plugin-linux"
+# Determine OS
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+
+# Determine architecture
+ARCH=$(uname -m)
+case $ARCH in
+    x86_64)
+        ARCH="amd64"
+        ;;
+    arm64|aarch64)
+        ARCH="arm64"
+        ;;
+    *)
+        echo "Unsupported architecture: $ARCH"
+        exit 1
+        ;;
+esac
+
+# Plugin URLs based on OS and architecture
+GCP_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-gcp-credential-exec-plugin-${OS}-${ARCH}"
+AWS_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-aws-credential-exec-plugin-${OS}-${ARCH}"
+AZURE_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-azure-credential-exec-plugin-${OS}-${ARCH}"
 
 # Plugin names
 GCP_PLUGIN_NAME="kube-client-go-gcp-exec-plugin"
@@ -20,42 +38,32 @@ if [ ! -w "$INSTALL_DIR" ]; then
   exit 1
 fi
 
-# Download, install, and verify each plugin
+# Function to download and install a plugin
+install_plugin() {
+  local url=$1
+  local name=$2
 
-# GCP Plugin
-echo "Downloading $GCP_PLUGIN_NAME from $GCP_PLUGIN_URL..."
-curl -L "$GCP_PLUGIN_URL" -o "$GCP_PLUGIN_NAME"
-chmod +x "$GCP_PLUGIN_NAME"
-mv "$GCP_PLUGIN_NAME" "$INSTALL_DIR/$GCP_PLUGIN_NAME"
-if [ -f "$INSTALL_DIR/$GCP_PLUGIN_NAME" ]; then
-  echo "$GCP_PLUGIN_NAME installed successfully to $INSTALL_DIR."
-else
-  echo "Error: Installation of $GCP_PLUGIN_NAME failed."
-  exit 1
-fi
+  echo "Downloading $name from $url..."
+  curl -L "$url" -o "$name"
+  chmod +x "$name"
+  mv "$name" "$INSTALL_DIR/$name"
 
-# AWS Plugin
-echo "Downloading $AWS_PLUGIN_NAME from $AWS_PLUGIN_URL..."
-curl -L "$AWS_PLUGIN_URL" -o "$AWS_PLUGIN_NAME"
-chmod +x "$AWS_PLUGIN_NAME"
-mv "$AWS_PLUGIN_NAME" "$INSTALL_DIR/$AWS_PLUGIN_NAME"
-if [ -f "$INSTALL_DIR/$AWS_PLUGIN_NAME" ]; then
-  echo "$AWS_PLUGIN_NAME installed successfully to $INSTALL_DIR."
-else
-  echo "Error: Installation of $AWS_PLUGIN_NAME failed."
-  exit 1
-fi
+  # Verify installation
+  if [ -f "$INSTALL_DIR/$name" ]; then
+    echo "$name installed successfully to $INSTALL_DIR."
+  else
+    echo "Error: Installation of $name failed."
+    exit 1
+  fi
+}
 
-# Azure Plugin
-echo "Downloading $AZURE_PLUGIN_NAME from $AZURE_PLUGIN_URL..."
-curl -L "$AZURE_PLUGIN_URL" -o "$AZURE_PLUGIN_NAME"
-chmod +x "$AZURE_PLUGIN_NAME"
-mv "$AZURE_PLUGIN_NAME" "$INSTALL_DIR/$AZURE_PLUGIN_NAME"
-if [ -f "$INSTALL_DIR/$AZURE_PLUGIN_NAME" ]; then
-  echo "$AZURE_PLUGIN_NAME installed successfully to $INSTALL_DIR."
-else
-  echo "Error: Installation of $AZURE_PLUGIN_NAME failed."
-  exit 1
-fi
+# Install GCP Plugin
+install_plugin "$GCP_PLUGIN_URL" "$GCP_PLUGIN_NAME"
+
+# Install AWS Plugin
+install_plugin "$AWS_PLUGIN_URL" "$AWS_PLUGIN_NAME"
+
+# Install Azure Plugin
+install_plugin "$AZURE_PLUGIN_URL" "$AZURE_PLUGIN_NAME"
 
 echo "All plugins installed successfully!"
