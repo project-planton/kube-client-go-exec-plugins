@@ -1,4 +1,4 @@
-module github.com/plantoncloud/kube-client-go-exec-plugins/aws
+module github.com/project-planton/kube-client-go-exec-plugins/aws
 
 go 1.22.4
 

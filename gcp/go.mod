@@ -1,4 +1,4 @@
-module github.com/plantoncloud/kube-client-go-exec-plugins/google
+module github.com/project-planton/kube-client-go-exec-plugins/google
 
 go 1.22
 

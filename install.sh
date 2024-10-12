@@ -23,9 +23,9 @@ case $ARCH in
 esac
 
 # Plugin URLs based on OS and architecture
-GCP_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-gcp-credential-exec-plugin-${OS}-${ARCH}"
-AWS_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-aws-credential-exec-plugin-${OS}-${ARCH}"
-AZURE_PLUGIN_URL="https://github.com/plantoncloud/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-azure-credential-exec-plugin-${OS}-${ARCH}"
+GCP_PLUGIN_URL="https://github.com/project-planton/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-gcp-credential-exec-plugin-${OS}-${ARCH}"
+AWS_PLUGIN_URL="https://github.com/project-planton/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-aws-credential-exec-plugin-${OS}-${ARCH}"
+AZURE_PLUGIN_URL="https://github.com/project-planton/kube-client-go-exec-plugins/releases/download/$KUBE_CLIENT_GO_EXEC_PLUGINS_VERSION/kube-client-go-azure-credential-exec-plugin-${OS}-${ARCH}"
 
 # Plugin names
 GCP_PLUGIN_NAME="kube-client-go-gcp-exec-plugin"
